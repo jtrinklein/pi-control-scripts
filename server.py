@@ -87,9 +87,14 @@ directionalControl = Controller()
 
 directionSwitch = {
     104: directionalControl.backward,
+    88: directionalControl.backward,
     100: directionalControl.left,
+    83: directionalControl.left,
     102: directionalControl.right,
-    98: directionalControl.forward
+    85: directionalControl.right,
+    98: directionalControl.forward,
+    80: directionalControl.forward,
+    115: directionalControl.stop
 }
 
 sock_name = '/tmp/uv4l.socket'              # Arbitrary non-privileged port
