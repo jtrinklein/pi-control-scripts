@@ -1,6 +1,8 @@
 # Echo server program
 import socket, os
 
+import RPi.GPIO as GPIO
+
 class Controller:
     DRIVE_FORWARD = 4
     DRIVE_BACKWARD = 2
