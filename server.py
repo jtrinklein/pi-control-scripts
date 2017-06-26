@@ -118,6 +118,8 @@ def forward_right():
 directionSwitch = {
     '0': stop_all,
     '6': stop_all,          #numpad 5
+    '5': directionalControl.left, #numpad 4
+    '7': directionalControl.right,#numpad 6
     '2': back_left,         #numpad 1
     '3': back_straight,     #numpad 2
     '4': back_right,        #numpad 3
@@ -154,11 +156,14 @@ def get_motion_fn(data):
     if match:
         keycode = match.group(0)
 
-    print "data: {0}\nkeycode: {1}".format(data, keycode)
-    if keycode in directionSwitch:
-        return directionSwitch[keycode]
+    fn = stop_all
 
-    return stop_all
+    if keycode in directionSwitch:
+        fn = directionSwitch[keycode]
+
+    print "data: {0} keycode: {1} function: {2}".format(data, keycode, fn.__name__)
+
+    return fn
 
 
 sock_name = '/tmp/uv4l.socket'              # Arbitrary non-privileged port
