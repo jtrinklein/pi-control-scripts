@@ -123,6 +123,15 @@ while 1:
         data = conn.recv(1024)
         if not data: break
         print data
-        directionSwitch[data]()
+
+        fn = directionSwitch[data]
+
+        if not fn:
+            directionalControl.stop()
+            directionalControl.straight()
+            print "{0} was not a handled keycode".format(data)
+        else
+            fn()
+
         conn.sendall(data)
     conn.close()
