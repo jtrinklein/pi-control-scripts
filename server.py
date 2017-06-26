@@ -5,10 +5,10 @@ import controller.Controller as Controller
 directionalControl = Controller()
 
 directionSwitch = {
-    104: directionalControl.go_backwards,
-    100: directionalControl.go_left,
-    102: directionalControl.go_right,
-    98: directionalControl.go_forward
+    104: directionalControl.backward,
+    100: directionalControl.left,
+    102: directionalControl.right,
+    98: directionalControl.forward
 }
 
 sock_name = '/tmp/uv4l.socket'              # Arbitrary non-privileged port
