@@ -158,7 +158,7 @@ while run:
         data = None
         try:
             data = conn.recv(1024)
-        except err as socket.error:
+        except socket.error as serr:
             break
 
         if not data: break
