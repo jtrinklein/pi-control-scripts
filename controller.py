@@ -39,28 +39,28 @@ class Controller:
         raw_input()
 
     def backward(self):
-    	GPIO.output(self.DRIVE_PIN_0, 0)
-    	GPIO.output(self.DRIVE_PIN_1, 1)
+        GPIO.output(self.DRIVE_PIN_0, 0)
+        GPIO.output(self.DRIVE_PIN_1, 1)
 
     def forward(self):
-    	GPIO.output(self.DRIVE_PIN_0, 0)
-    	GPIO.output(self.DRIVE_PIN_1, 0)
+        GPIO.output(self.DRIVE_PIN_0, 0)
+        GPIO.output(self.DRIVE_PIN_1, 0)
 
     def stop(self):
-    	GPIO.output(self.DRIVE_PIN_0, 1)
-    	GPIO.output(self.DRIVE_PIN_1, 0)
+        GPIO.output(self.DRIVE_PIN_0, 1)
+        GPIO.output(self.DRIVE_PIN_1, 0)
 
     def straight(self):
-    	GPIO.output(self.STEERING_PIN_0, 1)
-    	GPIO.output(self.STEERING_PIN_1, 0)
+        GPIO.output(self.STEERING_PIN_0, 1)
+        GPIO.output(self.STEERING_PIN_1, 0)
 
     def left(self):
-    	GPIO.output(self.STEERING_PIN_0, 0)
-    	GPIO.output(self.STEERING_PIN_1, 0)
+        GPIO.output(self.STEERING_PIN_0, 0)
+        GPIO.output(self.STEERING_PIN_1, 0)
 
     def right(self):
-    	GPIO.output(self.STEERING_PIN_0, 0)
-    	GPIO.output(self.STEERING_PIN_1, 1)
+        GPIO.output(self.STEERING_PIN_0, 0)
+        GPIO.output(self.STEERING_PIN_1, 1)
 
 
     def move_for_cycle_count(self, cycles, dir):
