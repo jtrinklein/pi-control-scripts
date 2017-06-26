@@ -87,8 +87,12 @@ class Controller:
 
 directionalControl = Controller()
 
+def stop_all():
+    directionalControl.stop()
+    directionalControl.straight()
 
 directionSwitch = {
+    '0': stop_all,
     '104': directionalControl.backward,
     '88': directionalControl.backward,
     '100': directionalControl.left,
@@ -106,14 +110,15 @@ directionSwitch = {
     '115': directionalControl.stop
 }
 
-def stop_all():
-	directionalControl.stop()
-	directionalControl.straight()
 
 def get_motion_fn(data):
-    searchStr = data || "0"
+    searchStr = data
+
+    if not searchStr:
+        searchStr = '0'
+
     match = re.search('\d+', data)
-    keycode = 0
+    keycode = '0'
 
     if match:
         keycode = match.group(0)
