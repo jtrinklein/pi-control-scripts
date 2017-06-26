@@ -130,7 +130,7 @@ while 1:
             directionalControl.stop()
             directionalControl.straight()
             print "{0} was not a handled keycode".format(data)
-        else
+        else:
             fn()
 
         conn.sendall(data)
