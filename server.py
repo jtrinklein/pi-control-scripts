@@ -97,6 +97,10 @@ directionSwitch = {
     '{"keycodes":[98]}': directionalControl.forward,
     '{"keycodes":[80]}': directionalControl.forward,
     '{"keycodes":[103]}': directionalControl.forward,
+    '{"keycodes":[108]}': directionalControl.backward,
+    '{"keycodes":[105]}': directionalControl.left,
+    '{"keycodes":[106]}': directionalControl.right,
+    '{"keycodes":[31]}': directionalControl.stop,
     '{"keycodes":[115]}': directionalControl.stop
 }
 
