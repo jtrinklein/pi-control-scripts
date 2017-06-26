@@ -24,18 +24,14 @@ class Controller:
     DRIVE_PIN_0 = 38
     DRIVE_PIN_1 = 40
 
-    setup = False
-
     def __init__(self):
-        if not setup:
-            GPIO.setmode(GPIO.BOARD)
-            GPIO.setup(self.STEERING_PIN_0, GPIO.OUT)
-            GPIO.setup(self.STEERING_PIN_1, GPIO.OUT)
-            GPIO.setup(self.DRIVE_PIN_0, GPIO.OUT)
-            GPIO.setup(self.DRIVE_PIN_1, GPIO.OUT)
-            self.straight()
-            self.stop()
-            setup = True
+        GPIO.setmode(GPIO.BOARD)
+        GPIO.setup(self.STEERING_PIN_0, GPIO.OUT)
+        GPIO.setup(self.STEERING_PIN_1, GPIO.OUT)
+        GPIO.setup(self.DRIVE_PIN_0, GPIO.OUT)
+        GPIO.setup(self.DRIVE_PIN_1, GPIO.OUT)
+        self.straight()
+        self.stop()
 
     # Enables step by step checking by wiring some LEDs to those 3 terminals
     def wait_a_key(self):
@@ -94,3 +90,40 @@ class Controller:
 
         self.straight()
         self.stop()
+
+if __name__ == "__main__":
+    c = Controller()
+
+    while 1:
+        print "enter to go forward"
+        c.wait_a_key()
+
+        c.forward()
+        print "enter to stop"
+        c.wait_a_key()
+
+        c.stop()
+        print "enter to backward"
+        c.wait_a_key()
+
+        c.backward()
+        print "enter to stop"
+        c.wait_a_key()
+
+        c.stop()
+        print "enter to left"
+        c.wait_a_key()
+
+        c.left()
+        print "enter to stop"
+        c.wait_a_key()
+
+        c.straight()
+        print "enter to right"
+        c.wait_a_key()
+
+        c.right()
+        print "enter to stop"
+        c.wait_a_key()
+
+        c.straight()
