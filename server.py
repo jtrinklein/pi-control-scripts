@@ -116,6 +116,6 @@ while 1:
         data = conn.recv(1024)
         if not data: break
         print data
-        directionSwitch[data.keycodes[0]]()
+        directionSwitch[data]()
         conn.sendall(data)
     conn.close()
