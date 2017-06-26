@@ -91,8 +91,35 @@ def stop_all():
     directionalControl.stop()
     directionalControl.straight()
 
+def back_left():
+    directionalControl.backward()
+    directionalControl.left()
+
+def back_straight():
+    directionalControl.backward()
+    directionalControl.straight()
+
+def forward_left():
+    directionalControl.forward()
+    directionalControl.left()
+
+def forward_straight():
+    directionalControl.forward()
+    directionalControl.straight()
+
+def forward_right():
+    directionalControl.forward()
+    directionalControl.right()
+
 directionSwitch = {
     '0': stop_all,
+    '6': stop_all,          #numpad 5
+    '2': back_left,         #numpad 1
+    '3': back_straight,     #numpad 2
+    '4': back_right,        #numpad 3
+    '8': forward_left,      #numpad 7
+    '9': forward_straight,  #numpad 8
+    '10': forward_right,    #numpad 9
     '104': directionalControl.backward,
     '88': directionalControl.backward,
     '100': directionalControl.left,
