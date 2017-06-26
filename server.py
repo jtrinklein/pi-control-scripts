@@ -99,6 +99,10 @@ def back_straight():
     directionalControl.backward()
     directionalControl.straight()
 
+def back_right():
+    directionalControl.backward()
+    directionalControl.right()
+
 def forward_left():
     directionalControl.forward()
     directionalControl.left()
