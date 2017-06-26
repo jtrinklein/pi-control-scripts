@@ -87,6 +87,7 @@ class Controller:
 
 directionalControl = Controller()
 
+
 directionSwitch = {
     '{"keycodes":[104]}': directionalControl.backward,
     '{"keycodes":[88]}': directionalControl.backward,
@@ -101,6 +102,7 @@ directionSwitch = {
     '{"keycodes":[105]}': directionalControl.left,
     '{"keycodes":[106]}': directionalControl.right,
     '{"keycodes":[31]}': directionalControl.stop,
+    '{"keycodes":[20]}': directionalControl.straight,
     '{"keycodes":[115]}': directionalControl.stop
 }
 
