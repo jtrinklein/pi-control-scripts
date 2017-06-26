@@ -1,5 +1,5 @@
 # Echo server program
-import socket, os
+import socket, os, re, signal
 
 import RPi.GPIO as GPIO
 
@@ -89,25 +89,46 @@ directionalControl = Controller()
 
 
 directionSwitch = {
-    '{"keycodes":[104]}': directionalControl.backward,
-    '{"keycodes":[88]}': directionalControl.backward,
-    '{"keycodes":[100]}': directionalControl.left,
-    '{"keycodes":[83]}': directionalControl.left,
-    '{"keycodes":[102]}': directionalControl.right,
-    '{"keycodes":[85]}': directionalControl.right,
-    '{"keycodes":[98]}': directionalControl.forward,
-    '{"keycodes":[80]}': directionalControl.forward,
-    '{"keycodes":[103]}': directionalControl.forward,
-    '{"keycodes":[108]}': directionalControl.backward,
-    '{"keycodes":[105]}': directionalControl.left,
-    '{"keycodes":[106]}': directionalControl.right,
-    '{"keycodes":[31]}': directionalControl.stop,
-    '{"keycodes":[20]}': directionalControl.straight,
-    '{"keycodes":[115]}': directionalControl.stop
+    '104': directionalControl.backward,
+    '88': directionalControl.backward,
+    '100': directionalControl.left,
+    '83': directionalControl.left,
+    '102': directionalControl.right,
+    '85': directionalControl.right,
+    '98': directionalControl.forward,
+    '80': directionalControl.forward,
+    '103': directionalControl.forward,
+    '108': directionalControl.backward,
+    '105': directionalControl.left,
+    '106': directionalControl.right,
+    '31': directionalControl.stop,
+    '20': directionalControl.straight,
+    '115': directionalControl.stop
 }
 
+def stop_all():
+	directionalControl.stop()
+	directionalControl.straight()
+
+def get_motion_fn(data):
+    searchStr = data || "0"
+    match = re.search('\d+', data)
+    keycode = 0
+
+    if match:
+        keycode = match.group(0)
+
+    print "data: {0}\nkeycode: {1}".format(data, keycode)
+    if keycode in directionSwitch:
+        return directionSwitch[keycode]
+
+    return stop_all
+
+
 sock_name = '/tmp/uv4l.socket'              # Arbitrary non-privileged port
+
 s = socket.socket(socket.AF_UNIX, socket.SOCK_SEQPACKET)
+
 try:
     os.remove(sock_name)
 except OSError:
@@ -116,15 +137,25 @@ except OSError:
 s.bind(sock_name)
 s.listen(1)
 
-while 1:
+run = True
+
+def signal_handler(signal, frame):
+    global run
+    run = False
+    print 'closing server...'
+
+signal.signal(signal.SIGINT, signal_handler)
+
+while run:
     conn, addr = s.accept()
 
-    while 1:
+    while run:
         data = conn.recv(1024)
         if not data: break
         print data
 
-        fn = directionSwitch[data]
+        fn = get_motion_fn(data)
+        conn.sendall(fn.__name__)
 
         if not fn:
             directionalControl.stop()
@@ -133,5 +164,7 @@ while 1:
         else:
             fn()
 
-        conn.sendall(data)
     conn.close()
+
+print "cleaning up..."
+GPIO.cleanup()
