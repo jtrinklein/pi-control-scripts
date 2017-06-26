@@ -155,7 +155,12 @@ while run:
     conn, addr = s.accept()
 
     while run:
-        data = conn.recv(1024)
+        data = None
+        try:
+            data = conn.recv(1024)
+        catch err as socket.error:
+            break
+
         if not data: break
         print data
 
