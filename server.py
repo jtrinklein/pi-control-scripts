@@ -88,15 +88,15 @@ class Controller:
 directionalControl = Controller()
 
 directionSwitch = {
-    104: directionalControl.backward,
-    88: directionalControl.backward,
-    100: directionalControl.left,
-    83: directionalControl.left,
-    102: directionalControl.right,
-    85: directionalControl.right,
-    98: directionalControl.forward,
-    80: directionalControl.forward,
-    115: directionalControl.stop
+    '{"keycodes":[104]}': directionalControl.backward,
+    '{"keycodes":[88]}': directionalControl.backward,
+    '{"keycodes":[100]}': directionalControl.left,
+    '{"keycodes":[83]}': directionalControl.left,
+    '{"keycodes":[102]}': directionalControl.right,
+    '{"keycodes":[85]}': directionalControl.right,
+    '{"keycodes":[98]}': directionalControl.forward,
+    '{"keycodes":[80]}': directionalControl.forward,
+    '{"keycodes":[115]}': directionalControl.stop
 }
 
 sock_name = '/tmp/uv4l.socket'              # Arbitrary non-privileged port
@@ -115,7 +115,7 @@ while 1:
     while 1:
         data = conn.recv(1024)
         if not data: break
-        print data.keycodes
+        print data
         directionSwitch[data.keycodes[0]]()
         conn.sendall(data)
     conn.close()
